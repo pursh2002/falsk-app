@@ -7,6 +7,7 @@ from pathlib import Path
 from io import BytesIO
 import base64
 import requests
+import stripe 
 
 # Import fast.ai Library
 from fastai import *
@@ -53,7 +54,19 @@ def model_predict(img):
     img_data = encode(img)
     result = {"class":pred_class, "probs":pred_probs, "image":img_data}
     return render_template('result.html', result=result)
-   
+
+@app.route('signup'), methods =['GET']
+def signup process():
+    card_data = request.json
+    charge = stripe.Charge.create(
+    amount = card_data.amount,
+    currency=card_data.currency,
+    customer=card_data.customer,
+    description=card_data.description,
+    metadata=card_data.id
+) 
+
+new_order.charge_id = charge.id
 
 @app.route('/', methods=['GET', "POST"])
 def index():
