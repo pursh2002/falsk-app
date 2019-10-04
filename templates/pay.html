@@ -1,0 +1,54 @@
+{% extends "payment.html" %}
+{% block content %}
+
+  <html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title> App </title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='narrow-jumbotron.css') }}" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="https://checkout.stripe.com/v3/checkout/button-qpwW2WfkB0oGWVWIASjIOQ.css"></head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills float-right">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </nav>
+        <h3 class="text-muted"></h3>
+      </div>
+
+      <div class="jumbotron">
+      
+        <h1 class="display-3">DermiMD</h1>
+        <p class="lead">To Purchase please pay 20$.</p>
+        <form action="{{ url_for('pay') }}" method="POST">
+          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button active" data-key="{{ pub_key }}" data-amount="19900" data-name="Demo Site" data-description="Widget" data-image="https://stripe.com/img/documentation/checkout/marketplace.png" data-locale="auto">
+          </script><button type="submit" class="stripe-button-el" style="visibility: visible;"><span style="display: block; min-height: 30px;">Pay with Card</span></button>
+        </form>
+      </div>
+
+      <footer class="footer">
+        <p></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  
+</body></html>
+
+
+{% endblock %}
+  
