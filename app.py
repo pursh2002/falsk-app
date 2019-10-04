@@ -16,9 +16,27 @@ from fastai.vision import *
 # Flask utils
 from flask import Flask, redirect, url_for, render_template, request
 from PIL import Image as PILImage
+from flask import Flask, request
+from flask_firebase import FirebaseAuth
+from flask_login import LoginManager, UserMixin, login_user, logout_user
+from flask_sqlalchemy import SQLAlchemy
 
 # Define a flask app
 app = Flask(__name__)
+app.config.from_object(...)
+
+db = SQLAlchemy(app)
+auth = FirebaseAuth(app)
+login_manager = LoginManager(app)
+
+app.register_blueprint(auth.blueprint, url_prefix='/auth')
+
+app = Flask(__name__)
+
+pub_key = 'pk_test'
+secret_key = 'sk_test'
+
+stripe.api_key = secret_key
 
 NAME_OF_FILE = 'model_best' # Name of your exported file
 PATH_TO_MODELS_DIR = Path('') # by default just use /models in root dir
@@ -55,8 +73,8 @@ def model_predict(img):
     result = {"class":pred_class, "probs":pred_probs, "image":img_data}
     return render_template('result.html', result=result)
 
-@app.route('signup'), methods =['GET']
-def signup process():
+@app.route(('signup'), methods =['GET'])
+def signup_process():
     card_data = request.json
     charge = stripe.Charge.create(
     amount = card_data.amount,
